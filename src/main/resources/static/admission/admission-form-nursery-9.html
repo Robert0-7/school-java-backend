@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admission Form - Nursery to 9</title>
+  <link rel="stylesheet" href="admission-form.css">
+</head>
+<body>
+  <div class="form-container">
+    <img src="../logo.jpg" alt="Logo" class="logo">
+    <div class="form-header">
+      <h2>H. M. EDUCATION CENTRE</h2>
+      <h3>ADMISSION 2026-2027</h3>
+      <h3>APPLICATION FORM (Nursery - 9)</h3>
+    </div>
+
+    <form id="admissionFormNursery9" autocomplete="off" enctype="multipart/form-data">
+      <input type="hidden" name="enquiryNumber">
+      <!-- hidden required fields for backend -->
+      <input type="hidden" name="dob_dd">
+      <input type="hidden" name="dob_mm">
+      <input type="hidden" name="dob_yyyy">
+      <input type="hidden" name="admissionClass">
+      <input type="hidden" name="mobile">
+
+      <!-- Prefilled readonly fields from enquiry -->
+      <fieldset>
+        <legend>Child's Basic Details</legend>
+        <label>Child’s Name:<span class="required">*</span></label>
+        <input type="text" name="childName" readonly required>
+
+        <label>Gender:<span class="required">*</span></label>
+        <input type="text" name="gender" readonly required>
+
+        <label>Date of Birth:<span class="required">*</span></label>
+        <input type="date" id="dob" name="dob" readonly required>
+
+        <label>Blood Group:<span class="required">*</span></label>
+        <select name="bloodGroup" id="bloodGroup-nursery" required>
+          <option value="">Select</option>
+          <option>A+</option>
+          <option>A-</option>
+          <option>B+</option>
+          <option>B-</option>
+          <option>AB+</option>
+          <option>AB-</option>
+          <option>O+</option>
+          <option>O-</option>
+        </select>
+
+        <label>Mother Tongue:<span class="required">*</span></label>
+        <select name="motherTongue" id="motherTongue-nursery" required onchange="toggleMotherTongueOtherNursery()">
+          <option value="">Select</option>
+          <option value="Bengali">Bengali</option>
+          <option value="Hindi">Hindi</option>
+          <option value="English">English</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" name="motherTongueOther" id="motherTongueOther-nursery" style="display:none;" placeholder="Please specify">
+
+        <label>Caste:<span class="required">*</span></label>
+        <select name="caste" id="caste-nursery" required>
+          <option value="">Select</option>
+          <option value="GEN">GEN</option>
+          <option value="SC">SC</option>
+          <option value="ST">ST</option>
+          <option value="OBC">OBC</option>
+        </select>
+
+        <label>Nationality:<span class="required">*</span></label>
+        <select name="nationality" id="nationality-nursery" required>
+          <option value="Indian">Indian</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" name="nationalityOther" id="nationalityOther-nursery" style="display:none;" placeholder="Please specify">
+
+        <label>State:<span class="required">*</span></label>
+        <select name="state" id="state-nursery" required>
+          <option value="">Select State</option>
+          <option>Andhra Pradesh</option>
+          <option>Arunachal Pradesh</option>
+          <option>Assam</option>
+          <option>Bihar</option>
+          <option>Chhattisgarh</option>
+          <option>Goa</option>
+          <option>Gujarat</option>
+          <option>Haryana</option>
+          <option>Himachal Pradesh</option>
+          <option>Jharkhand</option>
+          <option>Karnataka</option>
+          <option>Kerala</option>
+          <option>Madhya Pradesh</option>
+          <option>Maharashtra</option>
+          <option>Manipur</option>
+          <option>Meghalaya</option>
+          <option>Mizoram</option>
+          <option>Nagaland</option>
+          <option>Odisha</option>
+          <option>Punjab</option>
+          <option>Rajasthan</option>
+          <option>Sikkim</option>
+          <option>Tamil Nadu</option>
+          <option>Telangana</option>
+          <option>Tripura</option>
+          <option>Uttar Pradesh</option>
+          <option>Uttarakhand</option>
+          <option>West Bengal</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>Parent Details</legend>
+        <label>Father’s Name:<span class="required">*</span></label>
+        <input type="text" name="fatherName" readonly required>
+
+        <label>Father Academic Qualifications:</label>
+        <input type="text" name="fatherQual">
+
+        <label>Father Occupation & Designation:</label>
+        <input type="text" name="fatherOcc">
+
+        <label>Father Mobile No.:<span class="required">*</span></label>
+        <input type="text" name="fatherMobile" readonly required>
+
+        <label>Father Email:</label>
+        <input type="email" name="fatherEmail">
+
+        <label>Mother’s Name:<span class="required">*</span></label>
+        <input type="text" name="motherName" readonly required>
+
+        <label>Mother Academic Qualifications:</label>
+        <input type="text" name="motherQual">
+
+        <label>Mother Occupation & Designation:</label>
+        <input type="text" name="motherOcc">
+
+        <label>Mother Mobile No.:<span class="required">*</span></label>
+        <input type="text" name="motherMobile" readonly required>
+
+        <label>Mother Email:</label>
+        <input type="email" name="motherEmail">
+      </fieldset>
+
+      <fieldset>
+        <legend>Address</legend>
+        <label>Residential Address:<span class="required">*</span></label>
+        <textarea name="address" readonly required></textarea>
+
+        <label>Telephone No.:</label>
+        <input type="text" name="tel">
+      </fieldset>
+
+      <fieldset>
+        <legend>Upload Photos</legend>
+        <label>Child's Photo:<span class="required">*</span></label>
+        <input type="file" name="childImage" required>
+        <label>Father's Photo:<span class="required">*</span></label>
+        <input type="file" name="fatherImage" required>
+        <label>Mother's Photo:<span class="required">*</span></label>
+        <input type="file" name="motherImage" required>
+      </fieldset>
+
+      <!-- Payment QR and instruction -->
+      <div style="text-align:center; margin: 30px 0;">
+        <div style="font-size:1.1em; color:#222;">
+          Please pay <b>&#8377;700</b> as application fee for admission using the QR code below. After payment, please enter your <b>Transaction ID</b> and Upload the <b>Screenshot of your payment Receipt.</b><span class="required">*</span>
+        </div>
+        <img src="qr.png" alt="QR Code" style="width:180px; display:block; margin:0 auto 10px;">
+      </div>
+
+      <fieldset>
+        <legend>DECLARATION</legend>
+        <label>
+          <span>
+            I hereby certify that the above information is correct to the best of my knowledge and belief. Further, I fully understand that filling up the Application Form of my ward does not guarantee admission to the school. I also understand that the decision of the Principal regarding admission will be final and binding on me. I further undertake to abide by the School Rules. I also certify that I have read all the above given instructions carefully.<span class="required">*</span> 
+          </span>
+          <input type="checkbox" name="declaration" required>
+        </label>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit">Submit Admission</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- External JS only -->
+  <script src="admission-form-nursery-9.js"></script>
+</body>
+</html>

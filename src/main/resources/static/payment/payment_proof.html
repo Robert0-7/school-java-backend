@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Proof</title>
+    <link rel="stylesheet" href="payment_proof.css">
+</head>
+<body>
+    <div class="container">
+        <div id="enquiryNumberDisplay" style="margin-bottom:20px;color:#1eb6e7;font-weight:bold;"></div>
+        <form id="paymentProofForm">
+            <div class="form-group">
+                <label for="paymentScreenshot"><b>Upload Photo</b></label>
+                <div class="desc">Upload Your Payment Screenshot</div>
+                <input type="file" id="paymentScreenshot" name="paymentScreenshot" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="transactionId">Transaction ID <span class="required">*</span></label>
+                <input type="text" id="transactionId" name="transactionId" required>
+            </div>
+            <div class="button-group">
+                <button type="button" class="prev-btn" onclick="window.location.href='payment.html'">Previous</button>
+                <button type="submit" class="submit-btn">Submit enrollment</button>
+            </div>
+        </form>
+    </div>
+    <script src="payment_proof.js"></script>
+</body>
+</html>

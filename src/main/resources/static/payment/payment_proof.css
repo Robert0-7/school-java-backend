@@ -1,0 +1,85 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    background: #fafbfc;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+
+.form-group {
+    margin-bottom: 32px;
+}
+
+label {
+    display: block;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.desc {
+    font-size: 0.97em;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    background: #f7f7f7;
+    font-size: 1em;
+    margin-top: 6px;
+    box-sizing: border-box;
+}
+
+.required {
+    color: #e53935;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.prev-btn, .submit-btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.prev-btn {
+    background: #888;
+    color: #fff;
+}
+
+.submit-btn {
+    background: #1eb6e7;
+    color: #fff;
+}
+
+.prev-btn:hover {
+    background: #666;
+}
+
+.submit-btn:hover {
+    background: #159ac2;
+}

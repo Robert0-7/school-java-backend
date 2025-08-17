@@ -1,0 +1,18 @@
+<!-- Admission Button -->
+<button id="admissionBtn" style="padding:10px 20px;font-size:16px;">Admission</button>
+
+<!-- Modal for options -->
+<div id="admissionModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.4);align-items:center;justify-content:center;">
+  <div style="background:#fff;padding:30px;border-radius:8px;min-width:250px;text-align:center;">
+    <h3>Select Option</h3>
+    <a href="enquiry/enquiry-form.html"><button style="margin:10px 0;padding:10px 20px;">Enquiry Form</button></a><br>
+    <a href="admission/admission-redirect.html"><button style="margin:10px 0;padding:10px 20px;">Admission Form</button></a><br>
+    <button onclick="document.getElementById('admissionModal').style.display='none'" style="margin-top:10px;">Cancel</button>
+  </div>
+</div>
+
+<script>
+  document.getElementById('admissionBtn').onclick = function() {
+    document.getElementById('admissionModal').style.display = 'flex';
+  };
+</script>

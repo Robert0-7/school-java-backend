@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Admission Form - Class 11</title>
+  <link rel="stylesheet" href="admission-form.css">
+</head>
+<body>
+  <div class="form-container">
+    <img src="../logo.jpg" alt="Logo" class="logo">
+    <div class="form-header">
+      <h2>H. M. EDUCATION CENTRE</h2>
+      <h3>ADMISSION 2026-2027</h3>
+      <h3>APPLICATION FORM (Class 11)</h3>
+    </div>
+
+    <form id="admissionFormClass11" autocomplete="off" enctype="multipart/form-data">
+      <!-- hidden -->
+      <input type="hidden" name="enquiryNumber">
+      <input type="hidden" name="admissionClass" value="11th">
+
+      <!-- Child's Details -->
+      <fieldset>
+        <legend>Child's Basic Details</legend>
+
+        <label>Child’s Name:<span class="required">*</span></label>
+        <input type="text" name="childName" readonly required>
+
+        <label>Gender:<span class="required">*</span></label>
+        <input type="text" name="gender" readonly required>
+
+        <label>Date of Birth:<span class="required">*</span></label>
+        <input type="text" name="dob" readonly>
+        <!-- required hidden fields for backend -->
+        <input type="hidden" name="dob_dd">
+        <input type="hidden" name="dob_mm">
+        <input type="hidden" name="dob_yyyy">
+
+        <label>Blood Group:<span class="required">*</span></label>
+        <select name="bloodGroup" id="bloodGroup" required>
+          <option value="">Select</option>
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>AB+</option><option>AB-</option>
+          <option>O+</option><option>O-</option>
+        </select>
+
+        <label>Nationality:<span class="required">*</span></label>
+        <select name="nationality" id="nationality" required onchange="toggleNationalityOther()">
+          <option value="Indian">Indian</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" name="nationalityOther" id="nationalityOther" style="display:none;" placeholder="Please specify">
+
+        <label>Caste:<span class="required">*</span></label>
+        <select name="caste" id="caste" required>
+          <option value="">Select</option>
+          <option value="GEN">GEN</option>
+          <option value="SC">SC</option>
+          <option value="ST">ST</option>
+          <option value="OBC">OBC</option>
+        </select>
+
+        <label>Mother Tongue:<span class="required">*</span></label>
+        <select name="motherTongue" id="motherTongue" required onchange="toggleMotherTongueOther()">
+          <option value="">Select</option>
+          <option value="Bengali">Bengali</option>
+          <option value="Hindi">Hindi</option>
+          <option value="English">English</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" name="motherTongueOther" id="motherTongueOther" style="display:none;" placeholder="Please specify">
+      </fieldset>
+
+      <!-- Parent Details -->
+      <fieldset>
+        <legend>Parent Details</legend>
+
+        <label>Father’s Name:<span class="required">*</span></label>
+        <input type="text" name="fatherName" readonly required>
+
+        <label>Father Occupation & Designation:</label>
+        <input type="text" name="fatherOcc" readonly>
+
+        <label>Father Income:</label>
+        <input type="text" name="fatherIncome" readonly>
+
+        <label>Father Mobile No.:<span class="required">*</span></label>
+        <input type="text" name="fatherMobile" readonly required>
+
+        <label>Father Email:</label>
+        <input type="email" name="fatherEmail">
+
+        <label>Mother’s Name:<span class="required">*</span></label>
+        <input type="text" name="motherName" readonly required>
+
+        <label>Mother Occupation & Designation:</label>
+        <input type="text" name="motherOcc" readonly>
+
+        <label>Mother Income:</label>
+        <input type="text" name="motherIncome" readonly>
+
+        <label>Mother Mobile No.:<span class="required">*</span></label>
+        <input type="text" name="motherMobile" readonly required>
+
+        <label>Mother Email:</label>
+        <input type="email" name="motherEmail">
+      </fieldset>
+
+      <!-- Contact & Address -->
+      <fieldset>
+        <legend>Contact Info</legend>
+
+        <label>Mobile (for communication):<span class="required">*</span></label>
+        <input type="text" name="mobile" readonly required>
+
+        <label>Address:<span class="required">*</span></label>
+        <textarea name="address" rows="2" readonly required></textarea>
+      </fieldset>
+
+      <!-- Performance -->
+      <fieldset>
+        <legend>Performance Record</legend>
+        <div class="performance-tables">
+          <table class="perf-table">
+            <caption>Class IX Annual Examination</caption>
+            <thead>
+              <tr>
+                <th>Sl. No.</th>
+                <th>Subject</th>
+                <th>Mark/Grade<span class="required">*</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>English</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="ixEng" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>2<sup>nd</sup> Language</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="ixLang" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Mathematics</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="ixMath" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Science</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="ixScience" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Social Studies</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="ixSst" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="perf-table">
+            <caption>Class X Pre-Board / Board Examination</caption>
+            <thead>
+              <tr>
+                <th>Sl. No.</th>
+                <th>Subject</th>
+                <th>Mark/Grade<span class="required">*</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>English</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="xEng" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>2<sup>nd</sup> Language</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="xLang" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Mathematics</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="xMath" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Science</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="xScience" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Social Studies</td>
+                <td>
+                  <div class="perf-input-cell">
+                    <input type="number" name="xSst" min="0" max="100" step="any" required>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </fieldset>
+
+      <!-- Class 11 Group -->
+      <fieldset>
+        <legend>Class 11 Group & Subjects</legend>
+        <label>Applied Group:<span class="required">*</span></label>
+        <select name="appliedGroup" id="appliedGroup" required></select>
+        <div id="subjectsSection"></div>
+      </fieldset>
+
+      <!-- Medical -->
+      <fieldset>
+        <legend>Medical Info</legend>
+        <textarea name="medicalInfo" rows="3" placeholder="Does the child require any special medical/assisting facilities?"></textarea>
+      </fieldset>
+
+      <!-- Upload -->
+      <fieldset>
+        <legend>Upload Photos</legend>
+        <label>Child's Photo:<span class="required">*</span></label>
+        <input type="file" name="childImage" required>
+        <label>Father's Photo:<span class="required">*</span></label>
+        <input type="file" name="fatherImage" required>
+        <label>Mother's Photo:<span class="required">*</span></label>
+        <input type="file" name="motherImage" required>
+      </fieldset>
+
+      <!-- Payment QR and instruction -->
+      <div style="text-align:center; margin: 30px 0;">
+        <div style="font-size:1.1em; color:#222;">
+          Please pay <b>&#8377;700</b> as application fee for admission using the QR code below. After payment, please enter your <b>Transaction ID</b> and Upload the <b>Screenshot of your payment Receipt.</b> <span class="required">*</span>
+        </div>
+        <img src="qr.png" alt="QR Code" style="width:180px; display:block; margin:0 auto 10px;">
+      </div>
+
+      <!-- Declaration -->
+      <fieldset>
+        <legend>DECLARATION</legend>
+        <label>
+          <span>I fully cooperate with the school to fulfill all its educational objectives for my child to be available to do so. I solemnly declare that what has been documented above is true to the best of my knowledge and belief. <span class="required">*</span>
+        </span>
+          <input type="checkbox" name="declaration" required>
+        </label>
+      </fieldset>
+
+      <div class="form-actions">
+        <button type="submit">Submit Admission</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="admission-form-class11.js"></script>
+</body>
+</html>

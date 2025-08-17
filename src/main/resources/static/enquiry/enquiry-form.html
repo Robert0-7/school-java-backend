@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enquiry Form - H M EDUCATION CENTRE</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="enquiry-form.css">
+</head>
+<body>
+  <div class="enquiry-container">
+    <img src="../logo.jpg" alt="Logo" class="logo">
+    <div class="enquiry-header">
+      <h2>H. M. EDUCATION CENTRE</h2>
+      <h3>ADMISSION 2026-2027</h3>
+      <h3>ENQUIRY FORM</h3>
+      <p>
+        We believe in quality education &amp; get the best out of each child.<br>
+        We are serving the society with dignity for 65 years. We are here to help you.
+      </p>
+    </div>
+
+    <!-- FORM -->
+    <form id="enquiryForm" autocomplete="off">
+      <table class="enquiry-table">
+        <tr>
+          <td class="label">1. Name of the child <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">2. Gender <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <select id="gender" name="gender" required>
+              <option value="">Select Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+            <span id="genderError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">3. Father's Name <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="text" id="fatherName" name="fatherName" required>
+            <span id="fatherNameError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">4. Profession of father <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="text" id="fatherProfession" name="fatherProfession" required>
+            <span id="fatherProfessionError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">5. Yearly Income (approx) <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="number" id="fatherIncome" name="fatherIncome" min="0" required>
+            <span id="fatherIncomeError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">6. Mother's Name <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="text" id="motherName" name="motherName" required>
+            <span id="motherNameError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">7. Profession of mother <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="text" id="motherProfession" name="motherProfession" required>
+            <span id="motherProfessionError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">8. Yearly Income (approx) <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="number" id="motherIncome" name="motherIncome" min="0" required>
+            <span id="motherIncomeError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">9. Admission in Class <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <select id="admissionClass" name="admissionClass" required>
+              <option value="">Select Class</option>
+              <option>Nursery</option>
+              <option>Lower infant</option>
+              <option>Upper infant</option>
+              <option>1st</option>
+              <option>2nd</option>
+              <option>3rd</option>
+              <option>4th</option>
+              <option>5th</option>
+              <option>6th</option>
+              <option>7th</option>
+              <option>8th</option>
+              <option>9th</option>
+              <option>11th</option>
+            </select>
+            <span id="admissionClassError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">10. Date of birth of Child <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="date" id="dob" name="dob" required min="2000-01-01" max="2024-12-31">
+            <span id="dobError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">11. Contact number <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="tel" id="contact1" name="contact1" pattern="[0-9]{10}" maxlength="10" required>
+            <span id="contact1Error" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">12. Email ID <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="email" id="email" name="email" required>
+            <span id="emailError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label">13. Address <span class="required">*</span></td>
+          <td class="colon">:</td>
+          <td>
+            <input type="text" id="address" name="address" required>
+            <span id="addressError" class="error"></span>
+          </td>
+        </tr>
+        <tr>
+          <td class="label" style="vertical-align:top;">14. Source</td>
+          <td class="colon" style="vertical-align:top;">:</td>
+          <td>
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="source" value="Ex Student">Ex Student</label>
+              <label><input type="checkbox" name="source" value="Existing student">Existing student</label>
+              <label><input type="checkbox" name="source" value="Staff's Referral">Staff's Referral</label>
+              <label><input type="checkbox" name="source" value="School Website">School Website</label>
+              <label><input type="checkbox" name="source" value="Banner">Banner</label>
+              <label><input type="checkbox" name="source" value="Just Dial">Just Dial</label>
+              <label><input type="checkbox" name="source" value="Facebook & Google">Facebook & Google</label>
+              <label><input type="checkbox" name="source" value="Parents Referral">Parents Referral</label>
+              <label><input type="checkbox" name="source" value="Well wisher (word of mouth)">Well wisher</label>
+              <label><input type="checkbox" name="source" value="Others">Others</label>
+            </div>
+            <span id="sourceError" class="error"></span>
+          </td>
+        </tr>
+        <tr class="query-row">
+          <td class="label" style="vertical-align:top;">15. Your query (if any)</td>
+          <td class="colon" style="vertical-align:top;">:</td>
+          <td>
+            <textarea id="query" name="query" rows="2"></textarea>
+            <span id="queryError" class="error"></span>
+          </td>
+        </tr>
+      </table>
+      <button id="submitBtn" type="submit">Submit</button>
+    </form>
+
+    <!-- SUCCESS MESSAGE -->
+    <div class="success" id="enquirySuccess" style="display:none;">
+      Enquiry submitted! Your Enquiry Number is 
+      <span id="enquiryNumber"></span>
+      <button type="button" id="copyEnquiryNumberBtn" class="copy-btn" title="Copy Enquiry Number">Copy</button>.<br>
+      Please save this number for admission.<br>
+      <a href="../admission/admission-redirect.html" class="btn-success">Admission Form</a>
+    </div>
+  </div>
+  <script src="enquiry-form.js"></script>
+</body>
+</html>

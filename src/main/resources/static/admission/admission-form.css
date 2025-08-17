@@ -1,0 +1,130 @@
+.form-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.logo {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+fieldset {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+.required {
+  color: red;
+  margin-left: 2px;
+  font-weight: bold;
+}
+legend {
+  font-weight: bold;
+}
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+}
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+input:required:invalid, select:required:invalid, textarea:required:invalid {
+  border-color: #e74c3c;
+}
+button {
+  background: #007bff;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+.group-selection {
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+.group-selection label {
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  gap: 6px;
+}
+.performance-tables {
+  display: flex;
+  gap: 32px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.perf-table {
+  border-collapse: collapse;
+  min-width: 270px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.perf-table caption {
+  font-weight: bold;
+  margin-bottom: 4px;
+  text-align: center;
+  caption-side: top;
+}
+.perf-table th, .perf-table td {
+  border: 1px solid #333;
+  padding: 6px 10px;
+  text-align: center;
+  font-size: 1rem;
+  position: relative;
+  vertical-align: middle;
+}
+.perf-table th {
+  background: #f3f3f3;
+  font-weight: bold;
+}
+.perf-table input[type="text"] {
+  width: 90px;
+  padding: 4px 6px;
+  font-size: 1rem;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  text-align: center;
+}
+.perf-table input[type="number"] {
+  width: 80px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 4px 6px;
+  font-size: 1rem;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  text-align: center;
+  margin: 0;
+  background: #fff;
+}
+.perf-input-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+@media (max-width: 700px) {
+  .performance-tables {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .perf-table {
+    min-width: unset;
+    width: 100%;
+  }
+}
