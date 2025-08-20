@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -112,6 +113,12 @@ public class AdmissionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Could not upload the file: " + e.getMessage()));
         }
+    }
+
+    // GET /api/admissions - return all admissions as JSON
+    @GetMapping(produces = "application/json")
+    public List<Admission> getAllAdmissions() {
+        return admissionRepository.findAll();
     }
 
     @GetMapping("/images/{filename:.+}")

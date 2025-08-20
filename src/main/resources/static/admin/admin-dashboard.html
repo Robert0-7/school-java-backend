@@ -3,40 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard | HMEC</title>
-  <link rel="stylesheet" href="admin.css">
+  <link rel="stylesheet" href="admin-dashboard.css">
 </head>
 <body>
-  <div class="dashboard-container">
-    <h2>Admin Dashboard</h2>
-    <button id="logoutBtn">Logout</button>
+<div class="dashboard-container">
+  <h2>Admin Dashboard</h2>
+  <button id="logoutBtn">Logout</button>
 
-    <h3>Enquiries</h3>
+  <h3>Enquiries</h3>
+  <div class="table-responsive">
     <table id="enquiriesTable">
       <thead>
-        <tr>
-          <th>Enquiry No</th>
-          <th>Name</th>
-          <th>Class</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <h3>Admissions</h3>
-    <table id="admissionsTable">
-      <thead>
-        <tr>
-          <th>Admission ID</th>
-          <th>Enquiry No</th>
-          <th>Student</th>
-          <th>Class</th>
-          <th>Payment Status</th>
-        </tr>
+      <tr>
+        <th>Enquiry No</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Father Name</th>
+        <th>Father Profession</th>
+        <th>Father Income</th>
+        <th>Mother Name</th>
+        <th>Mother Profession</th>
+        <th>Mother Income</th>
+        <th>Class</th>
+        <th>DOB(YYYY-MM-DD)</th>
+        <th>Contact</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Query</th>
+        <th>Source</th>
+      </tr>
       </thead>
       <tbody></tbody>
     </table>
   </div>
 
-  <script src="admin_dashboard.js"></script>
+  <h3>Admissions</h3>
+  <div class="table-responsive">
+    <table id="admissionsTable">
+      <thead>
+      <tr>
+        <th>Admission ID</th>
+        <th>Enquiry No</th>
+        <th>Class</th>
+        <th>Child Name</th>
+        <th>Gender</th>
+        <th>DOB(DD-MM-YYYY)</th>
+        <th>Blood Group</th>
+        <th>Nationality</th>
+        <th>State</th>
+        <th>Caste</th>
+        <th>Mother Tongue</th>
+        <th>Second Language</th>
+        <th>Address</th>
+        <th>Mobile</th>
+        <th>Aadhaar</th>
+        <th>Father Name</th>
+        <th>Father Mobile</th>
+        <th>Father Email</th>
+        <th>Mother Name</th>
+        <th>Mother Mobile</th>
+        <th>Mother Email</th>
+        <th>Last School</th>
+        <th>Last School Affiliation</th>
+        <th>Child's Image</th>
+        <th>Father's Image</th>
+        <th>Mother's Image</th>
+        <th>Payment Status</th>
+        <th>Transaction ID</th>
+        <th>Payment Proof</th>
+      </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="admin-dashboard.js"></script>
 </body>
 </html>

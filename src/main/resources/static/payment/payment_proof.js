@@ -45,7 +45,7 @@ document
     formData.append("transactionId", transactionId);
 
     // --- API call ---
-    const apiUrl = `http://localhost:8080/api/admissions/by-enquiry/${enquiryNumber}/upload-payment-proof`;
+    const apiUrl = `/api/admissions/by-enquiry/${enquiryNumber}/upload-payment-proof`;
 
     fetch(apiUrl, {
         method: 'POST',

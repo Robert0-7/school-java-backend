@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/enquiries")
 @RequiredArgsConstructor
@@ -49,4 +51,10 @@ public class EnquiryController {
                     .body("Enquiry not found for number: " + enquiryNumber);
         }
     }
+
+    @GetMapping(produces = "application/json")
+    public List<Enquiry> getAllEnquiries() {
+        return enquiryService.findAll();
+    }
+
 }

@@ -9,7 +9,7 @@ document.getElementById("redirectForm").addEventListener("submit", async (e) => 
   }
 
   try {
-    const res = await fetch(`http://localhost:8080/api/enquiries/${enquiryNumber}`);
+    const res = await fetch(`${window.location.origin}/api/enquiries/${enquiryNumber}`);
     if (!res.ok) {
       errorMsg.textContent = "Invalid enquiry number.";
       return;

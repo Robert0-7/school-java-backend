@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -49,10 +50,15 @@ public class EnquiryService {
                 .orElseThrow(() -> new RuntimeException("Enquiry not found with number: " + enquiryNumber));
     }
 
+    public List<Enquiry> findAll() {
+        return enquiryRepository.findAll();
+    }
+
     private String generateUniqueEnquiryNumber() {
         // Example: ENQ-1660502400-8435
         long timestamp = Instant.now().getEpochSecond();
         int randomNum = ThreadLocalRandom.current().nextInt(1000, 10000);
         return "ENQ-" + timestamp + "-" + randomNum;
     }
+
 }

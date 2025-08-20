@@ -55,7 +55,7 @@ form.addEventListener('submit', async (e) => {
   if (sources.length) formDataObj.source = sources;
 
   try {
-    const response = await fetch('http://localhost:8080/api/enquiries', {
+    const response = await fetch('/api/enquiries', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formDataObj)

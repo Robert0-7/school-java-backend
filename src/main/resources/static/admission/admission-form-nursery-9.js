@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await fetch(`http://localhost:8080/api/enquiries/${enquiryNumber}`);
+    const res = await fetch(`/api/enquiries/${enquiryNumber}`);
     if (!res.ok) throw new Error("Enquiry not found");
     const data = await res.json();
 
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const formData = new FormData(e.target);
 
     try {
-      const res = await fetch("http://localhost:8080/api/admissions", {
+      const res = await fetch("/api/admissions", {
         method: "POST",
         body: formData
       });

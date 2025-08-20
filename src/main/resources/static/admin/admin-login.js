@@ -1,55 +1,51 @@
-const form = document.getElementById("adminLoginForm");
-const errorMsg = document.getElementById("errorMsg");
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("adminLoginForm");
+  const errorMsg = document.getElementById("errorMsg");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  // If already logged in, redirect to dashboard
+  const token = localStorage.getItem("adminToken");
+  if (token) {
+    window.location.href = "admin-dashboard.html";
+    return;
+  }
 
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorMsg.textContent = ""; // Clear previous error
 
-  try {
-    const res = await fetch("http://localhost:8080/api/admin/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-    if (!res.ok) {
-      throw new Error("Invalid username or password");
+    if (!username || !password) {
+      errorMsg.textContent = "Please fill in both fields.";
+      return;
     }
 
-    const data = await res.json();
-    // Save JWT to localStorage
-    localStorage.setItem("adminToken", data.token);
-    // Redirect to dashboard
-    window.location.href = "admin_dashboard.html";
-  } catch (err) {
-    errorMsg.textContent = err.message;
-  }
-});
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+    try {
+      const res = await fetch("/api/admin/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+      });
 
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
+      if (!res.ok) {
+        if (res.status === 401) {
+          errorMsg.textContent = "Invalid username or password.";
+        } else {
+          errorMsg.textContent = "Server error. Please try again.";
+        }
+        return;
+      }
 
-  try {
-    const res = await fetch("http://localhost:8080/api/admin/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-
-    if (!res.ok) {
-      throw new Error("Invalid username or password");
+      const data = await res.json();
+      if (data.token) {
+        localStorage.setItem("adminToken", data.token);
+        window.location.href = "admin-dashboard.html";
+      } else {
+        errorMsg.textContent = "Unexpected server response.";
+      }
+    } catch (err) {
+      errorMsg.textContent = "Network error. Please try again.";
     }
-
-    const data = await res.json();
-    // Save JWT to localStorage
-    localStorage.setItem("adminToken", data.token);
-    // Redirect to dashboard
-    window.location.href = "admin_dashboard.html";
-  } catch (err) {
-    errorMsg.textContent = err.message;
-  }
+  });
 });

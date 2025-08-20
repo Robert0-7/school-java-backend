@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.querySelector("[name='admissionClass']").value = admissionClass;
 
   try {
-    const res = await fetch(`http://localhost:8080/api/enquiries/${enquiryNumber}`);
+    const res = await fetch(`/api/enquiries/${enquiryNumber}`);
     if (!res.ok) throw new Error("Enquiry not found");
     const data = await res.json();
 
@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const formData = new FormData(form);
 
     try {
-      const res = await fetch("http://localhost:8080/api/admissions", {
+      const res = await fetch("/api/admissions", {
         method: "POST",
         body: formData
       });

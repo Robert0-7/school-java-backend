@@ -44,25 +44,29 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(req -> {
                     var c = new CorsConfiguration();
-                    c.setAllowedOrigins(List.of("*")); // adjust in production
+                    c.setAllowedOrigins(List.of("*")); // tighten in prod
                     c.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
                     c.setAllowedHeaders(List.of("*"));
                     c.setExposedHeaders(List.of("Authorization"));
                     return c;
                 }))
                 .authorizeHttpRequests(auth -> auth
+                        // Allow static frontend resources
+                        .requestMatchers("/", "/index.html", "/success.html", "/logo.jpg",
+                                "/admin/**", "/enquiry/**", "/admission/**", "/payment/**").permitAll()
+
                         // Public admin auth endpoints
                         .requestMatchers(HttpMethod.POST, "/api/admin/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/admin/auth/login").permitAll()
 
                         // Public APIs
-                        .requestMatchers("/api/enquiries/**", "/api/admissions/**").permitAll()
+                        .requestMatchers("/api/enquiries/**", "/api/admissions/images/**").permitAll()
 
-                        // Protected admin endpoints
-                        .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                        // Protected admin APIs
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-                        // Everything else requires authentication
-                        .anyRequest().authenticated()
+                        // Everything else free (frontend assets)
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
