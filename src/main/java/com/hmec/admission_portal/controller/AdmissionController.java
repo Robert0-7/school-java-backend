@@ -50,10 +50,16 @@ public class AdmissionController {
                     .body("{\"error\":\"Admission class does not match enquiry record\"}");
         }
 
-        Admission savedAdmission = admissionService.saveAdmission(admissionDTO);
+        try {
+            Admission savedAdmission = admissionService.saveAdmission(admissionDTO);
 
-        String jsonResponse = "{\"id\":" + savedAdmission.getId() + "}";
-        return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
+            String jsonResponse = "{\"id\":" + savedAdmission.getId() + "}";
+            return new ResponseEntity<>(jsonResponse, HttpStatus.CREATED);
+        } catch (IOException e) {
+            log.error("❌ Error creating admission: {}", e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("{\"error\":\"Could not create admission: " + e.getMessage() + "\"}");
+        }
     }
 
     @PostMapping("/by-enquiry/{enquiryNumber}/upload-payment-proof")
@@ -79,7 +85,7 @@ public class AdmissionController {
                                 "enquiryNumber", updated.getEnquiryNumber(),
                                 "paymentStatus", updated.getPaymentStatus()
                         ));
-                    } catch (Exception e) {
+                    } catch (IOException e) {
                         log.error("❌ Error uploading payment proof for enquiry {}: {}", enquiryNumber, e.getMessage(), e);
                         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                 .body(Map.of("error", "Could not upload the file: " + e.getMessage()));
@@ -108,7 +114,7 @@ public class AdmissionController {
                     "enquiryNumber", updated.getEnquiryNumber(),
                     "paymentStatus", updated.getPaymentStatus()
             ));
-        } catch (Exception e) {
+        } catch (IOException e) {
             log.error("❌ Error uploading payment proof for admissionId {}: {}", admissionId, e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Could not upload the file: " + e.getMessage()));

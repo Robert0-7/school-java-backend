@@ -1,73 +1,43 @@
 package com.hmec.admission_portal.service;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.UUID;
 import java.net.MalformedURLException;
+import java.net.URL;
 
 @Service
 public class FileStorageService {
 
-    private final Path fileStorageLocation;
-    @Value("${file.upload-dir}") // Injects the path from application.properties
-    private String uploadDir;
+    private final S3Service s3Service;
 
-    public FileStorageService(@Value("${file.upload-dir}") String uploadDir) {
-        this.fileStorageLocation = Paths.get(uploadDir).toAbsolutePath().normalize();
+    @Autowired
+    public FileStorageService(S3Service s3Service) {
+        this.s3Service = s3Service;
+    }
+
+    public String storeFile(MultipartFile file) throws IOException {
+        return s3Service.uploadFile(file);
+    }
+    public Resource loadFileAsResource(String filename) {
         try {
-            Files.createDirectories(this.fileStorageLocation);
-        } catch (Exception ex) {
-            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
+            // Assuming you have a method to get the S3 file URL (modify as per your S3Service)
+            URL fileUrl = getS3FileUrl(filename); // Implement this in your S3Service or here
+            return new UrlResource(fileUrl);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("File not found: " + filename, e);
         }
     }
 
-    public String storeFile(MultipartFile file) {
-        if (file.isEmpty()) {
-            return null;
-        }
-
-        try {
-            // Create the directory if it doesn't exist
-            Path uploadPath = Paths.get(uploadDir);
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
-
-            // Generate a unique filename to avoid conflicts
-            String originalFileName = file.getOriginalFilename();
-            String fileExtension = "";
-            if (originalFileName != null && originalFileName.contains(".")) {
-                fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
-            }
-            String uniqueFileName = UUID.randomUUID().toString() + fileExtension;
-
-            // Save the file
-            Path filePath = uploadPath.resolve(uniqueFileName);
-            Files.copy(file.getInputStream(), filePath);
-
-            return uniqueFileName; // Return the new name to store in the DB
-        } catch (IOException e) {
-            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
-        }
-    }
-    public Resource loadFileAsResource(String fileName) {
-        try {
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-            if (resource.exists()) {
-                return resource;
-            } else {
-                throw new RuntimeException("File not found " + fileName);
-            }
-        } catch (MalformedURLException ex) {
-            throw new RuntimeException("File not found " + fileName, ex);
-        }
+    // Example stub for S3 URL retrieval, you should replace this with your actual S3 implementation
+    private URL getS3FileUrl(String filename) throws MalformedURLException {
+        // Example: Replace with actual logic to generate S3 pre-signed or public URL
+        // return s3Service.generatePresignedUrl(filename);
+        // For now, just a placeholder that throws
+        throw new UnsupportedOperationException("S3 file URL retrieval not implemented!");
     }
 }

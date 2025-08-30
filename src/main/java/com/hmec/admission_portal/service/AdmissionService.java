@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @Service
 @RequiredArgsConstructor
 public class AdmissionService {
@@ -14,7 +16,7 @@ public class AdmissionService {
     private final AdmissionRepository admissionRepository;
     private final FileStorageService fileStorageService;
 
-    public Admission saveAdmission(AdmissionDTO dto) {
+    public Admission saveAdmission(AdmissionDTO dto) throws IOException {
         // check if admission already exists
         Admission admission = admissionRepository.findByEnquiryNumber(dto.getEnquiryNumber())
                 .orElse(new Admission()); // if not found, create new
@@ -34,9 +36,7 @@ public class AdmissionService {
             admission.setMotherImagePath(fileStorageService.storeFile(dto.getMotherImage()));
         }
 
-        // map rest of DTO → entity (like you already have in mapDtoToEntity)
-        // but here instead of creating new Admission again,
-        // just update the existing one
+        // map rest of DTO → entity
         mapDtoToExistingEntity(dto, admission);
 
         // Default payment status if new
@@ -48,7 +48,7 @@ public class AdmissionService {
         return admissionRepository.save(admission);
     }
 
-    public Admission handlePaymentProofUpload(Long admissionId, String transactionId, MultipartFile paymentProofFile) {
+    public Admission handlePaymentProofUpload(Long admissionId, String transactionId, MultipartFile paymentProofFile) throws IOException {
         // 1. Find the admission record, throw exception if not found
         Admission admission = admissionRepository.findById(admissionId)
                 .orElseThrow(() -> new RuntimeException("Admission record not found with id: " + admissionId));
