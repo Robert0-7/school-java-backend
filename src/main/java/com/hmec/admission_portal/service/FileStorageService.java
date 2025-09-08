@@ -1,43 +1,87 @@
 package com.hmec.admission_portal.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
+import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class FileStorageService {
 
-    private final S3Service s3Service;
+    @Value("${S3_BUCKET_NAME}")
+    private String bucketName;
 
-    @Autowired
-    public FileStorageService(S3Service s3Service) {
-        this.s3Service = s3Service;
-    }
+    @Value("${AWS_REGION}")
+    private String region;
 
-    public String storeFile(MultipartFile file) throws IOException {
-        return s3Service.uploadFile(file);
-    }
-    public Resource loadFileAsResource(String filename) {
-        try {
-            // Assuming you have a method to get the S3 file URL (modify as per your S3Service)
-            URL fileUrl = getS3FileUrl(filename); // Implement this in your S3Service or here
-            return new UrlResource(fileUrl);
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("File not found: " + filename, e);
+    @Value("${AWS_ACCESS_KEY_ID}")
+    private String accessKey;
+
+    @Value("${AWS_SECRET_ACCESS_KEY}")
+    private String secretKey;
+
+    /**
+     * Generate a presigned URL valid for 15 minutes
+     */
+    public String storeFile(MultipartFile file, String folder, String filename) {
+        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKey, secretKey);
+
+        try (S3Client s3Client = S3Client.builder()
+                .region(Region.of(region))
+                .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+                .build()) {
+
+            // Ensure unique name if no filename provided
+            String key = folder + "/" + (filename != null ? filename : UUID.randomUUID() + "_" + file.getOriginalFilename());
+
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .contentType(file.getContentType())
+                    .build();
+
+            s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
+
+            return key; // return S3 key (not URL)
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to upload file to S3", e);
         }
     }
+    public String generatePresignedUrl(String key) {
+        AwsBasicCredentials awsCreds = AwsBasicCredentials.create(accessKey, secretKey);
 
-    // Example stub for S3 URL retrieval, you should replace this with your actual S3 implementation
-    private URL getS3FileUrl(String filename) throws MalformedURLException {
-        // Example: Replace with actual logic to generate S3 pre-signed or public URL
-        // return s3Service.generatePresignedUrl(filename);
-        // For now, just a placeholder that throws
-        throw new UnsupportedOperationException("S3 file URL retrieval not implemented!");
+        try (S3Presigner presigner = S3Presigner.builder()
+                .region(Region.of(region))
+                .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
+                .build()) {
+
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
+
+            GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(15)) // 🔹 Expiry time
+                    .getObjectRequest(getObjectRequest)
+                    .build();
+
+            URL url = presigner.presignGetObject(presignRequest).url();
+            return url.toString();
+        }
     }
 }

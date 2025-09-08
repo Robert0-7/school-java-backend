@@ -26,15 +26,17 @@ public class AdmissionService {
         admission.setAdmissionClass(dto.getAdmissionClass());
 
         // Store uploaded images if provided
+        // Store uploaded images if provided
         if (dto.getChildImage() != null && !dto.getChildImage().isEmpty()) {
-            admission.setChildImagePath(fileStorageService.storeFile(dto.getChildImage()));
+            admission.setChildImagePath(fileStorageService.storeFile(dto.getChildImage(), dto.getEnquiryNumber(), "child"));
         }
         if (dto.getFatherImage() != null && !dto.getFatherImage().isEmpty()) {
-            admission.setFatherImagePath(fileStorageService.storeFile(dto.getFatherImage()));
+            admission.setFatherImagePath(fileStorageService.storeFile(dto.getFatherImage(), dto.getEnquiryNumber(), "father"));
         }
         if (dto.getMotherImage() != null && !dto.getMotherImage().isEmpty()) {
-            admission.setMotherImagePath(fileStorageService.storeFile(dto.getMotherImage()));
+            admission.setMotherImagePath(fileStorageService.storeFile(dto.getMotherImage(), dto.getEnquiryNumber(), "mother"));
         }
+
 
         // map rest of DTO → entity
         mapDtoToExistingEntity(dto, admission);
@@ -54,7 +56,8 @@ public class AdmissionService {
                 .orElseThrow(() -> new RuntimeException("Admission record not found with id: " + admissionId));
 
         // 2. Store the payment proof file using your existing service
-        String fileName = fileStorageService.storeFile(paymentProofFile);
+        String fileName = fileStorageService.storeFile(paymentProofFile, admission.getEnquiryNumber(), "payment_proof");
+        admission.setPaymentProofPath(fileName);
 
         // 3. Update the admission entity's status and proof path
         admission.setPaymentStatus("AWAITING_VERIFICATION");

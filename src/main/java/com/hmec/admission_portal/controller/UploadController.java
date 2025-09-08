@@ -1,25 +1,38 @@
-package com.hmec.admission_portal.controller;
-
-import com.hmec.admission_portal.service.S3Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-        import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.core.sync.RequestBody;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/files")
 public class UploadController {
 
-    @Autowired
-    private com.hmec.admission_portal.service.S3Service s3Service;
+    private final S3Client s3Client;
+
+    public UploadController(S3Client s3Client) {
+        this.s3Client = s3Client;
+    }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        try {
-            String key = s3Service.uploadFile(file);
-            return ResponseEntity.ok("File uploaded successfully! S3 Key: " + key);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Upload failed: " + e.getMessage());
-        }
+    public String uploadFile(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("enquiryNumber") String enquiryNumber,
+            @RequestParam("type") String type) throws IOException {
+
+        String fileName = type + "_" + System.currentTimeMillis() + "_" + file.getOriginalFilename();
+        String key = "enquiries/" + enquiryNumber + "/" + fileName;
+
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket("my-admission-portal-uploads")
+                .key(key)
+                .contentType(file.getContentType())
+                .build();
+
+        s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
+
+        return "https://my-admission-portal-uploads.s3.ap-south-1.amazonaws.com/" + key;
     }
 }

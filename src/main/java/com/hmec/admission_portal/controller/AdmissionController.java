@@ -127,24 +127,19 @@ public class AdmissionController {
         return admissionRepository.findAll();
     }
 
-    @GetMapping("/images/{filename:.+}")
-    public ResponseEntity<Resource> downloadFile(
-            @PathVariable String filename,
-            HttpServletRequest request) {
-
-        Resource resource = fileStorageService.loadFileAsResource(filename);
-
-        String contentType;
+    @GetMapping("/files/{key:.+}")
+    public ResponseEntity<Map<String, String>> getFileUrl(@PathVariable String key) {
         try {
-            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-        } catch (IOException ex) {
-            log.warn("⚠️ Could not determine file type for {}. Defaulting to application/octet-stream", filename);
-            contentType = "application/octet-stream";
-        }
+            String presignedUrl = fileStorageService.generatePresignedUrl(key);
 
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
+            return ResponseEntity.ok(Map.of(
+                    "url", presignedUrl,
+                    "key", key
+            ));
+        } catch (Exception e) {
+            log.error("❌ Error generating presigned URL for key {}: {}", key, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Could not generate file URL"));
+        }
     }
 }
