@@ -82,4 +82,24 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (err) {
         console.error('Modal logic error:', err);
     }
+
+    // Enlarge image on click
+    document.querySelectorAll('.enlargeable').forEach(img => {
+        img.addEventListener('click', function() {
+            const modal = document.getElementById('img-modal');
+            const modalImg = document.getElementById('img-modal-img');
+            modalImg.src = this.src;
+            modal.style.display = 'flex';
+        });
+    });
+
+    // Close modal on click of close button or overlay
+    document.getElementById('img-modal-close').onclick = function() {
+        document.getElementById('img-modal').style.display = 'none';
+    };
+    document.getElementById('img-modal').onclick = function(e) {
+        if (e.target === this) {
+            this.style.display = 'none';
+        }
+    };
 });
