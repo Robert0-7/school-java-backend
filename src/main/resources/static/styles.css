@@ -1,0 +1,271 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background: #f4f7fa;
+    color: #333;
+}
+header {
+    background: #228B22;
+    color: #fff;
+    padding: 0;
+}
+.header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.5em 2em;
+}
+.logo-title {
+    display: flex;
+    align-items: center;
+}
+#school-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-right: 1em;
+}
+.school-name {
+    font-size: 2.2em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+nav ul {
+    display: flex;
+    gap: 2em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+nav a,
+#admission-btn {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    background: none;
+    border: none;
+    padding: 0.5em 1em;
+    font: inherit;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* Hero Section */
+.hero-section {
+    background: url('hero-bg.jpg') center/cover no-repeat;
+    min-height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(34,139,34,0.6);
+}
+.hero-content {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    text-align: center;
+}
+.cta-btn, #hero-admission-btn {
+    background: #ffb400;
+    color: #222;
+    border: none;
+    padding: 1em 2em;
+    border-radius: 30px;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-top: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.cta-btn:hover, #hero-admission-btn:hover {
+    background: #e09e00;
+}
+
+/* Features Section */
+.features-section {
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    background: #fff;
+    padding: 2em 0;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.feature {
+    text-align: center;
+    flex: 1;
+    padding: 1em;
+    background: #f8fafc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.feature img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 0.5em;
+}
+
+/* Principal's Message */
+.principal-section {
+    background: #e8f5e9;
+    padding: 2em 0;
+    text-align: center;
+}
+.principal-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.principal-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #228B22;
+}
+
+/* Gallery Section */
+.gallery-section {
+    background: #fff;
+    padding: 2em 0;
+    text-align: center;
+}
+.gallery-images {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
+}
+.gallery-images img {
+    width: 220px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+/* Footer */
+footer {
+    background: #228B22;
+    color: #fff;
+    text-align: center;
+    padding: 1.5em 0 1em 0;
+    margin-top: 2em;
+}
+.footer-links {
+    margin-bottom: 0.5em;
+}
+.footer-links a {
+    color: #fff;
+    text-decoration: underline;
+    margin: 0 0.5em;
+    font-size: 1em;
+}
+.footer-links a:hover {
+    color: #ffb400;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+.modal-content {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.15);
+    padding: 2em 2.5em;
+    text-align: center;
+    min-width: 280px;
+    max-width: 90vw;
+}
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    font-size: 1.5em;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: bold;
+}
+.modal-btn {
+    display: block;
+    width: 80%;
+    margin: 0.5em auto;
+    padding: 0.8em 0;
+    font-size: 1.1em;
+    background: #f8f8f8;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s, border 0.2s;
+}
+.modal-btn:hover {
+    background: #e8f5e9;
+    border-color: #228B22;
+}
+.modal-cancel {
+    display: block;
+    width: 50%;
+    margin: 1em auto 0 auto;
+    padding: 0.5em 0;
+    font-size: 1em;
+    background: #f8f8f8;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s, border 0.2s;
+}
+.modal-cancel:hover {
+    background: #ffeaea;
+    border-color: #ffb400;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .features-section, .principal-message, .gallery-images {
+        flex-direction: column;
+        gap: 1em;
+    }
+    .header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1em;
+    }
+    nav ul {
+        gap: 1em;
+    }
+}
+@media (max-width: 600px) {
+    .header-bar, .features-section, .principal-message, .gallery-images {
+        padding: 0 0.5em;
+    }
+    .school-name {
+        font-size: 1.3em;
+    }
+    .principal-img {
+        width: 80px;
+        height: 80px;
+    }
+    .gallery-images img {
+        width: 100%;
+        height: 100px;
+    }
+}
