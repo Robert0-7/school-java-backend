@@ -34,3 +34,5 @@ build/
 
 # Local environment variables
 .env
+
+src/main/java/com/hmec/admission_portal/config/BootstrapAdmin.java
